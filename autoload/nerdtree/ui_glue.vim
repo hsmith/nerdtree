@@ -58,6 +58,8 @@ function! nerdtree#ui_glue#createDefaultBindings() abort
     call NERDTreeAddKeyMap({ 'key': g:NERDTreeMapToggleFiles, 'scope': 'all', 'callback': s.'toggleShowFiles' })
     call NERDTreeAddKeyMap({ 'key': g:NERDTreeMapToggleBookmarks, 'scope': 'all', 'callback': s.'toggleShowBookmarks' })
 
+    call NERDTreeAddKeyMap({ 'key': g:NERDTreeIgnoreNode, 'scope': 'Node', 'callback': s.'hideNode' })
+
     call NERDTreeAddKeyMap({ 'key': g:NERDTreeMapCloseDir, 'scope': 'Node', 'callback': s.'closeCurrentDir' })
     call NERDTreeAddKeyMap({ 'key': g:NERDTreeMapCloseChildren, 'scope': 'DirNode', 'callback': s.'closeChildren' })
 
@@ -289,6 +291,23 @@ endfunction
 function! s:displayHelp() abort
     call b:NERDTree.ui.toggleHelp()
     call b:NERDTree.render()
+    call b:NERDTree.ui.centerView()
+endfunction
+
+" FUNCTION: s:hideNode() {{{1
+" hides the currently highlighted node in the tree
+function! s:hideNode(node) abort
+    echo a:node.path.str()
+    let l:idx = index(g:NERDTreeIgnoreNodes, a:node.path.str())
+    if l:idx >= 0
+        call nerdtree#echoWarning('showing ' . a:node.path.str())
+        call remove(g:NERDTreeIgnoreNodes, l:idx)
+    else
+        call nerdtree#echoWarning('hiding ' . a:node.path.str())
+        call add(g:NERDTreeIgnoreNodes, a:node.path.str())
+    endif
+
+    call b:NERDTree.ui.renderViewSavingPosition()
     call b:NERDTree.ui.centerView()
 endfunction
 

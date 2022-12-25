@@ -453,6 +453,12 @@ endfunction
 function! s:Path.ignore(nerdtree)
     "filter out the user specified paths to ignore
     if a:nerdtree.ui.isIgnoreFilterEnabled()
+        for i in g:NERDTreeIgnoreNodes
+            if index(g:NERDTreeIgnoreNodes, self.str()) >= 0
+                return 1
+            endif
+        endfor
+
         for i in g:NERDTreeIgnore
             if self._ignorePatternMatches(i)
                 return 1

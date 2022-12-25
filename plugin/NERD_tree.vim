@@ -38,6 +38,7 @@ let g:NERDTreeCreatePrefix          = get(g:, 'NERDTreeCreatePrefix',          '
 let g:NERDTreeMinimalUI             = get(g:, 'NERDTreeMinimalUI',             0)
 let g:NERDTreeMinimalMenu           = get(g:, 'NERDTreeMinimalMenu',           0)
 let g:NERDTreeIgnore                = get(g:, 'NERDTreeIgnore',                ['\~$'])
+let g:NERDTreeIgnoreNodes           = []
 let g:NERDTreeBookmarksFile         = get(g:, 'NERDTreeBookmarksFile',         expand('$HOME') . '/.NERDTreeBookmarks')
 let g:NERDTreeBookmarksSort         = get(g:, 'NERDTreeBookmarksSort',         1)
 let g:NERDTreeHighlightCursorline   = get(g:, 'NERDTreeHighlightCursorline',   1)
@@ -134,6 +135,8 @@ let g:NERDTreeMapUpdirKeepOpen   = get(g:, 'NERDTreeMapUpdirKeepOpen',   'U')
 let g:NERDTreeMapCWD             = get(g:, 'NERDTreeMapCWD',             'CD')
 let g:NERDTreeMenuDown           = get(g:, 'NERDTreeMenuDown',           'j')
 let g:NERDTreeMenuUp             = get(g:, 'NERDTreeMenuUp',             'k')
+let g:NERDTreeIgnoreNode         = get(g:, 'NERDTreeIgnoreNode',         'h')
+
 
 "SECTION: Load class files{{{2
 call nerdtree#loadClassFiles()
