@@ -38,6 +38,7 @@ let g:NERDTreeCreatePrefix          = get(g:, 'NERDTreeCreatePrefix',          '
 let g:NERDTreeMinimalUI             = get(g:, 'NERDTreeMinimalUI',             0)
 let g:NERDTreeMinimalMenu           = get(g:, 'NERDTreeMinimalMenu',           0)
 let g:NERDTreeIgnore                = get(g:, 'NERDTreeIgnore',                ['\~$'])
+let g:NERDTreeIgnoreFile            = get(g:, 'NERDTreeIgnoreFile',            '.nerdignore')
 let g:NERDTreeIgnoreNodes           = []
 let g:NERDTreeBookmarksFile         = get(g:, 'NERDTreeBookmarksFile',         expand('$HOME') . '/.NERDTreeBookmarks')
 let g:NERDTreeBookmarksSort         = get(g:, 'NERDTreeBookmarksSort',         1)
@@ -53,6 +54,15 @@ let g:NERDTreeShowFiles             = get(g:, 'NERDTreeShowFiles',             1
 let g:NERDTreeShowHidden            = get(g:, 'NERDTreeShowHidden',            0)
 let g:NERDTreeShowLineNumbers       = get(g:, 'NERDTreeShowLineNumbers',       0)
 let g:NERDTreeSortDirs              = get(g:, 'NERDTreeSortDirs',              1)
+
+" Look for a file in the cwd that is called g:NERDTreeIgnoreFile and add those
+" to the g:NERDTreeIgnore, useful for selectively ignore folders and files in
+" a specific project
+let s:ignoreFilePath = getcwd().'/'.g:NERDTreeIgnoreFile
+if filereadable(s:ignoreFilePath)
+    let s:ignores = readfile(s:ignoreFilePath)
+    let g:NERDTreeIgnore = g:NERDTreeIgnore + s:ignores
+endif
 
 if !nerdtree#runningWindows() && !nerdtree#runningCygwin()
     let g:NERDTreeDirArrowExpandable  = get(g:, 'NERDTreeDirArrowExpandable',  '▸')
